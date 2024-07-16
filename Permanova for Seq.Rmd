@@ -1,28 +1,22 @@
 ---
-title: "Permanova on Seq Data"
-author: "Sophie Killam"
-date: "2023-12-11"
-output: html_document
+#This is a PERMANOVA I performed on my sequencing data, however, I continued with the generalized linear mixed model framework of MaAslin2 
+#This code was adapted from Kait Al (https://github.com/kait-al/Microbiome_SOPs/tree/main) 
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 ```{r}
 #install.packages('devtools')
-#devtools::install_github('ggloor/CoDaSeq/CoDaSeq')
+#devtools::install_github('ggloor/CoDaSeq/CoDaSeq') 
 #loading required packages
 library(compositions)
-library(zCompositions)
+library(zCompositions) #used for managing compositional data
 library(vegan) # for permanova
 library(CoDaSeq)
-library(Maaslin2) 
+library(Maaslin2) #GLMM framework
 library(dplyr)
 ```
 
 ```{r}
-#Load data
+#Load required data
 setwd("/Users/sophie/Desktop/Sequencing Data")
 counts <- read.table("cutadapt_counts.txt", 
                      header = TRUE, row.names = 1, sep = "\t", check.names = FALSE, 
@@ -57,8 +51,8 @@ f_meta <- filtered_meta[rownames(filt_counts), ]
 
 #rename veh to a_veh in excel then re-read the table back in
 #add in artificial "interaction" columns for maaslin2
-#write.table(f_meta, file="filtmeta.txt", sep="\t", quote=F)
-##head(filt_meta, 20)
+write.table(f_meta, file="filtmeta.txt", sep="\t", quote=F)
+head(filt_meta, 20)
 ```
 
 ```{r}
@@ -72,7 +66,7 @@ czm <- cmultRepl(filt_counts, label = 0, method = "CZM")
 ```
 
 ```{r}
-#CLR transform the data
+#Centre log Ratio transform the data
 clr <- t(apply(czm, 1, function(x) {log(x) - mean(log(x))} ))
 ```
 
@@ -150,8 +144,6 @@ adonis2(formula = clr ~ Week, data = f_meta, method = "euclidean", by = NULL, pe
 ```{r}
 head(f_meta, 30)
 ```
-
-Initially tried it with Kait's original code and the output was maaslin_treatment_week whereas this one has an 'and' in it 
 
 ```{r}
 #write.table(filtered_counts, file="filtcounts.txt", sep="\t")
