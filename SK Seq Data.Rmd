@@ -1,8 +1,5 @@
 ---
-title: "SK Seq Data"
-author: "Sophie Killam"
-date: "2023-11-22"
-output: html_document
+#Analysis of my Sequencing data: filtering, aggregated barplot, and principle component analysis. All code was adapted from Kait Al (https://github.com/kait-al/Microbiome_SOPs). 
 ---
 
 ```{r setup, include=FALSE}
