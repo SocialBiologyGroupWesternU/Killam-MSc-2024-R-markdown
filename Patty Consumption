@@ -1,11 +1,28 @@
+---
+title: "Patty consumption"
+author: "Sophie Killam"
+date: "2024-05-17"
+output: html_document
+---
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-setwd("/Users/sophie/Desktop/Behavioural Stats") #set directory to file
-library(readxl)
-PattyConsumption <- read_excel("PattyConsumption.xlsx") #load file
-head(PattyConsumption, 18) #view contents of file
+library(readxl) #for reading excel files
+setwd("/Users/sophie/Desktop")
+```
 
-#create graph of patty consumption for thesis
+
+```{r}
+#Load dataset
+PattyConsumption <- read_excel("/Users/sophie/Desktop/Behavioural Stats/PattyConsumption.xlsx")
+#View(PattyConsumption)
+head(PattyConsumption, 18)
+```
+
+
+```{r}
+#graph of patty consumption used in thesis 
 library(ggplot2)
-ggplot(patty_consumption2, aes(x=Hive, y=Consumed, fill=Patty)) + ylab("% Consumed") +
+ggplot(PattyConsumption, aes(x=Hive, y=Consumed, fill=Patty)) + ylab("% Consumed") +
   geom_bar(stat="identity", pwidth=0.7, position=position_dodge(width=0.8)) + theme_classic() + scale_fill_manual(values=c("cadetblue3", "plum4")) + scale_x_discrete(name ="Hive", 
                     limits=c("1","2","3","4","5","6","7","8","9"))
+```
