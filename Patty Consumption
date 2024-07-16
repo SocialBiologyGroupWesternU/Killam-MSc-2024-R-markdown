@@ -1,3 +1,4 @@
+knitr::opts_chunk$set(echo = TRUE)
 setwd("/Users/sophie/Desktop/Behavioural Stats") #set directory to file
 library(readxl)
 PattyConsumption <- read_excel("PattyConsumption.xlsx") #load file
